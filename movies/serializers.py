@@ -6,6 +6,7 @@ from genres.serializers import GenreSerializer
 
 
 class MovieSerializer(serializers.ModelSerializer):
+    
 
     class Meta:
         model = Movie
@@ -26,11 +27,11 @@ class MovieSerializer(serializers.ModelSerializer):
 class MovieListDetailSerializer (serializers.ModelSerializer):
     rate = serializers.SerializerMethodField(read_only=True)
     actors = ActorSerializer(many=True)
-    genres = GenreSerializer()
+    genre = GenreSerializer()
 
     class Meta:
         model = Movie
-        fields = ['id', 'title', 'release_date', 'rate', 'actors', 'genres', 'resume']
+        fields = ['id', 'title', 'release_date', 'rate', 'actors', 'genre', 'resume']
 
     def get_rate(self, obj):
         rate = obj.reviews.aggregate(Avg('stars'))['stars__avg']
