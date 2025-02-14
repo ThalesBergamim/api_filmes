@@ -23,14 +23,14 @@ class MovieSerializer(serializers.ModelSerializer):
         return value
 
 
-class MovieListDetailSerializer (serializers.Serializer):
+class MovieListDetailSerializer (serializers.ModelSerializer):
     rate = serializers.SerializerMethodField(read_only=True)
     actors = ActorSerializer(many=True)
-    genre = GenreSerializer()
+    genres = GenreSerializer(many=True)
 
     class Meta:
         model = Movie
-        fields = ['id', 'title', 'released_date', 'rate', 'actors', 'genre', 'resume']
+        fields = ['id', 'title', 'release_date', 'rate', 'actors', 'genres', 'resume']
 
     def get_rate(self, obj):
         rate = obj.reviews.aggregate(Avg('stars'))['stars__avg']
