@@ -26,7 +26,7 @@ class MovieSerializer(serializers.ModelSerializer):
 class MovieListDetailSerializer (serializers.ModelSerializer):
     rate = serializers.SerializerMethodField(read_only=True)
     actors = ActorSerializer(many=True)
-    genres = GenreSerializer(many=True)
+    genres = GenreSerializer()
 
     class Meta:
         model = Movie
